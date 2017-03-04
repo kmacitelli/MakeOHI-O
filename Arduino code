@@ -1,0 +1,134 @@
+
+
+// constants won't change. They're used here to 
+// set pin numbers:
+const int buttonPin = 0;     // the number of the pushbutton pin
+
+// variables will change:
+int buttonState = 0;         // variable for reading the pushbutton statu
+
+int pinA0;
+int pinB0;
+int pinC0;
+int pinD0;
+int pinA1;
+int pinB1;
+int pinC1;
+int pinD1;
+
+
+void setup() {
+  // initialize the LED pin as an output:
+  Serial.begin(9600);  
+  // initialize the pushbutton pin as an input:
+  pinMode(buttonPin, INPUT);   
+
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
+  pinMode(9, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+}
+
+void loop(){
+  // read the state of the pushbutton value:
+  
+  buttonState = digitalRead(buttonPin); 
+  int binNumOutput;
+  int currentHL; 
+  
+  //This does digits 1-10 on the displa
+  for (int i=0; i<10; i++)
+  {
+    delay(500);
+      
+    binNumOutput = decToBinaryDigit(i);
+    
+    
+    //Check rightmost bit (D)     
+    currentHL = binNumOutput%10;
+    if (currentHL == 1){
+      digitalWrite(4,  HIGH);
+    }
+    else{
+      digitalWrite(4,  LOW);
+    }
+    binNumOutput = binNumOutput / 10;
+    
+    
+    //Check second to right bit (C)
+    currentHL = binNumOutput%10; 
+    if (currentHL == 1){
+      digitalWrite(5,  HIGH);
+    }
+    else{
+      digitalWrite(5,  LOW);
+    }
+    binNumOutput = binNumOutput / 10;
+    
+    //Check 2nd to left bit (B)
+    currentHL = binNumOutput%10; 
+    if (currentHL == 1){
+      digitalWrite(6,  HIGH);
+    }
+    else{
+      digitalWrite(6,  LOW);
+    }  
+    binNumOutput = binNumOutput / 10;
+    
+    //Check left bit (A)
+    currentHL = binNumOutput%10;
+    if (currentHL == 1){
+      digitalWrite(7,  LOW);
+    }
+    else{
+      digitalWrite(7,  LOW);
+    }
+ 
+  }
+}
+
+
+int decToBinaryDigit(int num)
+{
+    int result;
+  
+    switch (num) {
+      case 0:
+        result = 0;
+        break;
+      case 1:
+        result = 1;
+        break;
+      case 2:
+        result = 10;
+        break;
+      case 3:
+        result = 11;
+        break;
+      case 4:
+        result = 100;
+        break;
+      case 5:
+        result = 101;
+        break;
+      case 6:
+        result = 110;
+        break;
+      case 7:
+        result = 111;
+        break;
+      case 8:
+        result = 1000;
+        break;
+      case 9:
+        result = 1001;
+        break;
+      
+    }
+    
+    return result;
+}
