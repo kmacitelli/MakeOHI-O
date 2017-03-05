@@ -5,7 +5,7 @@ time_t lastPressed;
 
 // constants won't change. They're used here to 
 // set pin numbers:
-const int buttonPin = 0;     // the number of the pushbutton pin
+const int buttonPin = 13;     // the number of the pushbutton pin
 
 // variables will change:
 int buttonState = 0;         // variable for reading the pushbutton statu
@@ -41,8 +41,10 @@ void setup() {
 void loop(){
   // read the state of the pushbutton value:
   buttonState = digitalRead(buttonPin);
-  if(!buttonState){
+  Serial.println(buttonState);
+  if(buttonState){
     lastPressed = now();
+    Serial.println("hey");
   }
   time_t t = now();
   
@@ -95,9 +97,10 @@ void displayNumber(int n, int displayOffset){
 }
 
 int daysSincePressed(time_t t){
-  int days = (t - lastPressed)/10;
+  //Testing Code
+  //int days = (t - lastPressed)/3;
   //USE THIS LINE FOR ACTUAL RUNNING
-  //int days = (t - lastPressed)/60/60/24
+  int days = (t - lastPressed)/60/60/24
   return days;
 }
 
