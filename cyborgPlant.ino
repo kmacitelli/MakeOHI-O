@@ -1,5 +1,6 @@
 #include <TimeLib.h>
 
+
 time_t lastPressed;
 
 // constants won't change. They're used here to 
@@ -45,10 +46,14 @@ void loop(){
   }
   time_t t = now();
   
-  displayNumber(daysSincePressed(t));
+  int days = daysSincePressed(t); 
+  
+  displayNumber(days%10, 4);
+  displayNumber(days/10, 8);
 }
 
-void displayNumber(int n){
+//displa offset - pass in 4 for displa 0 and 8 for display 1
+void displayNumber(int n, int displayOffset){
   int binNumOutput;
   int currentHL; 
   binNumOutput = decToBinaryDigit(n);
@@ -56,36 +61,36 @@ void displayNumber(int n){
   //Check rightmost bit (D)     
   currentHL = binNumOutput%10;
   if (currentHL == 1){
-    digitalWrite(4,  HIGH);
+    digitalWrite(0+displayOffset,  HIGH);
   }else{
-    digitalWrite(4,  LOW);
+    digitalWrite(0+displayOffset,  LOW);
   }
   binNumOutput = binNumOutput / 10;
   
   //Check second to right bit (C)
   currentHL = binNumOutput%10; 
   if (currentHL == 1){
-    digitalWrite(5,  HIGH);
+    digitalWrite(1+displayOffset,  HIGH);
   }else{
-    digitalWrite(5,  LOW);
+    digitalWrite(1+displayOffset,  LOW);
   }
   binNumOutput = binNumOutput / 10;
   
   //Check 2nd to left bit (B)
   currentHL = binNumOutput%10; 
   if (currentHL == 1){
-    digitalWrite(6,  HIGH);
+    digitalWrite(2+displayOffset,  HIGH);
   }else{
-    digitalWrite(6,  LOW);
+    digitalWrite(2+displayOffset,  LOW);
   }  
   binNumOutput = binNumOutput / 10;
   
   //Check left bit (A)
   currentHL = binNumOutput%10;
   if (currentHL == 1){
-    digitalWrite(7,  LOW);
+    digitalWrite(3+displayOffset,  LOW);
   }else{
-    digitalWrite(7,  LOW);
+    digitalWrite(3+displayOffset,  LOW);
   }
 }
 
